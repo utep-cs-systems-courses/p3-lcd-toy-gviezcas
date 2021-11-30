@@ -3,6 +3,7 @@
 #include "lcdutils.h"
 #include "lcddraw.h"
 #include "draw_shapes.h"
+#include "buzzer.h"
 
 // WARNING: LCD DISPLAY USES P1.0.  Do not touch!!! 
 
@@ -14,6 +15,7 @@ void main()
 
   init_shapes();
   draw_shapes();
+  buzzer_init();
 
   enableWDTInterrupts();
 

@@ -49,4 +49,6 @@ void draw_triangle(void);
 /* draws a circle with the given parameters */
 void draw_circle(int x, int y, int r, u_int color);
 
+void update_score();
+
 #endif // _DRAW_SHAPES_H_
