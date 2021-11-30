@@ -1,11 +1,11 @@
 #include <msp430.h>
 #include "switches.h"
 
-void __interrupt_vec(PORT2_VECTOR) Port_2()
+void port2_c_handler(void)
 {
   if(P2IFG & SWITCHES)
     {
       P2IFG &= ~SWITCHES;
-      switch_interrupt_handeler();
+      switch_interrupt_handler();
     }
 }

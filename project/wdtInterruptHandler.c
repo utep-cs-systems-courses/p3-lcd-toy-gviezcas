@@ -1,7 +1,6 @@
 #include <msp430.h>
 #include "libTimer.h"
 #include "draw_shapes.h"
-#include "buzzer.h"
 
 // function that handles interrupts
 // from the periodic timer
@@ -17,14 +16,13 @@ __interrupt_vec(WDT_VECTOR) WDT()
   if(second_count >= 125)
     {
       blank_triangle();
-      buzzer_state_machine(4);
     }
 
-  if (second_count >= second_limit) {
-    draw_triangle();
-    update_score();
-    buzzer_state_machine(2);
-    second_count = 0;
-  }
+  if (second_count >= second_limit)
+    {
+      draw_triangle();
+      update_score();
+      second_count = 0;
+    }
 } 
 

@@ -8,6 +8,7 @@
 #include "switches.h"
 
 // WARNING: LCD DISPLAY USES P1.0.  Do not touch!!! 
+char redraw_screen = 1;
 
 void main()
 {
@@ -19,7 +20,7 @@ void main()
   draw_shapes();
   buzzer_init();
   led_init();
-  //p2sw_init();
+  p2sw_init();
 
   enableWDTInterrupts();
 

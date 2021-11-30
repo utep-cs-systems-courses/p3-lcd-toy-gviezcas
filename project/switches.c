@@ -4,19 +4,11 @@
 #include "buzzer.h"
 
 char switch1_state_down, switch2_state_down, switch3_state_down, switch4_state_down, switch_state_changed;
+extern char redraw_screen;
 
 /* update he interrupt sense bits so 
    interrupts are fired when a switch changes
    position */
-
-static char
-switch_update_interrupt_sense()
-{
-  char p1val = P1IN;
-  P1IES |= (p1val & SWITCHES);// if switch up, sense down
-  P1IES &= (p1val | ~SWITCHES);// if switch down, sense up
-  return p1val;
-}
 
 static char switchp2_update_interrupt_sense()
 {
@@ -25,22 +17,6 @@ static char switchp2_update_interrupt_sense()
   P2IES &= (p2val | ~SWITCHES);
   return p2val;
 }
-
-
-
-/* setup switches */
-void
-switch_init()
-{
-  P1REN |=  SWITCHES;// enables resistors for switches
-  P1IE  |=  SWITCHES;// enable interrupts from switches
-  P1OUT |=  SWITCHES;// turn on switches so we can read them
-  P1DIR &= ~SWITCHES;// set switch pins to input
-  switch_update_interrupt_sense();
-  led_update();
-}
-
-
 
 void p2sw_init()
 {
@@ -55,11 +31,9 @@ void p2sw_init()
 void
 switch_interrupt_handler()
 {
-  char p1val = switch_update_interrupt_sense();
   char p2val = switchp2_update_interrupt_sense();
   // Switch reads 0 when down, we want to reverse
   // that so the state variable is 1 when down
-  switch3_state_down = (p1val & SW3) ? 0 : 1;
   //Check if switch 1 is down.
   switch1_state_down = (p2val & SW1) ? 0 : 1;
   //Check if switch 2 is down.
@@ -70,39 +44,35 @@ switch_interrupt_handler()
   switch4_state_down = (p2val & SW4) ? 0 : 1;
 
 
-  if (switch3_state_down)
-    {
-      green_on = 0;
-    } else
-    {
-      green_on = 1;
-    }
-  
-  if(switch2_state_down)
-    {
-      led_dim_state_machine(0);
-      
-    }
-
   if(switch1_state_down)
     {
       buzzer_state_machine(3);
+    }else
+    {
+      buzzer_state_machine(4);
     }
 
   if(switch2_state_down)
     {
-      buzzer_state_machine(2);
+      //buzzer_state_machine(2);
     }
 
   if(switch3_state_down)
     {
       buzzer_state_machine(1);
+    }else
+    {
+      buzzer_state_machine(4);
     }
 
   if(switch4_state_down)
     {
       buzzer_state_machine(0);
+    }else
+    {
+      buzzer_state_machine(4);
     }
+  redraw_screen = 1;
   led_changed = 1;
   led_update();
 }
