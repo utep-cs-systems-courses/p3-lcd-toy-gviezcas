@@ -87,29 +87,6 @@ draw_rectangle(void)
   fillRectangle(left_col, top_row, rect1.width, rect1.height, color);
 }
 
-void update_score(void)
-{
-  const u_char text_row = 20;
-  const u_char text_col = 40;
-  const u_char char_width = 12;
-  static u_char blue = 31, green = 16, red = 31;
-  u_int on_color  =                (green << 5) | red;
-  u_int off_color = (blue << 11)                | red;
-  static u_int score = 0;
-
-  drawChar5x7(text_col, text_row, score+'0', on_color, COLOR_BLACK);
-
-  if(score <= 50)
-    {
-      score++;
-      drawChar5x7(text_col, text_row, score+'0', on_color, COLOR_BLACK);
-    }else
-    {
-      score = 0;
-      drawChar5x7(text_col, text_row, score+'0', off_color, COLOR_BLACK);
-    }
-}
-
 void
 moving_rectangle(rectangle *to_draw)
 {

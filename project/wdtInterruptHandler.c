@@ -21,7 +21,6 @@ __interrupt_vec(WDT_VECTOR) WDT()
   if (second_count >= second_limit)
     {
       draw_triangle();
-      update_score();
       second_count = 0;
     }
 } 

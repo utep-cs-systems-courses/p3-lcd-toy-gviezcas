@@ -43,36 +43,5 @@ switch_interrupt_handler()
   //Check if switch 4 state down.
   switch4_state_down = (p2val & SW4) ? 0 : 1;
 
-
-  if(switch1_state_down)
-    {
-      buzzer_state_machine(3);
-    }else
-    {
-      buzzer_state_machine(4);
-    }
-
-  if(switch2_state_down)
-    {
-      //buzzer_state_machine(2);
-    }
-
-  if(switch3_state_down)
-    {
-      buzzer_state_machine(1);
-    }else
-    {
-      buzzer_state_machine(4);
-    }
-
-  if(switch4_state_down)
-    {
-      buzzer_state_machine(0);
-    }else
-    {
-      buzzer_state_machine(4);
-    }
   redraw_screen = 1;
-  led_changed = 1;
-  led_update();
 }
