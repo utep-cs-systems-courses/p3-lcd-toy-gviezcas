@@ -22,12 +22,12 @@ void
 init_shapes(void)
 {
   // vars for the rectangle
-  rect1.rect_row = 40;
-  rect1.rect_col = screenWidth / 2;
-  rect1.old_rect_row = 40;
-  rect1.old_rect_col = screenWidth / 2;
+  rect1.rect_row = 80;
+  rect1.rect_col = 80;
+  rect1.old_rect_row = 80;
+  rect1.old_rect_col = 80;
   rect1.height = 10;
-  rect1.width  = 60;
+  rect1.width  = 20;
 
   // vars for the circle
   cir1.cir_y = 80;
@@ -63,9 +63,16 @@ draw_moving_shapes(void)
   //draw_circle(cir2.cir_x, cir2.cir_y, cir2.r, COLOR_BLACK);
 
   //blank out old triangle
-  blank_triangle();
+  //blank_triangle();
   // draw the triangle
-  draw_triangle();
+  //draw_triangle();
+}
+
+void blank_rectangle(void)
+{
+  int left_col = rect1.old_rect_col - (rect1.width / 2);
+  int top_row = rect1.old_rect_row - (rect1.height / 2);
+  fillRectangle(left_col, top_row, rect1.width, rect1.height, background_color);
 }
 
 void draw_shapes(void)

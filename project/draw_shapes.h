@@ -28,6 +28,8 @@ void init_shapes(void);
 /* handles erasing and updating all the shapes */
 void draw_moving_shapes(void);
 
+void blank_rectangle(void);
+
 void draw_shapes(void);
 
 void blank_triangle(void);

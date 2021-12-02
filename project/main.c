@@ -22,8 +22,9 @@ void update_text(void)
   static u_char tenths_score = '0';
 
   drawChar5x7(text_col + char_width, text_row, score, on_color, background_color);
+  drawString5x7((screenWidth / 4), 150, "Feed PacMan", COLOR_RED, background_color);
 
-  if(switch1_state_down)
+  if(switch1_state_down && switch3_state_down)
     {
       if(score == '9')
 	{
