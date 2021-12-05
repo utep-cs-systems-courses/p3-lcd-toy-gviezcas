@@ -5,15 +5,29 @@
 	.global led_dim_state_machine
 	.extern red_on
 	.extern led_changed
+state:
+	.word 0x00
+	
+jt:
+	.word case_0
+	.word case_1
 
 led_dim_state_machine:
-	cmp r12, #0
-	jnz else
+	mov #1, r12
+	cmp &state, r12
+	jc end_case
+	mov &state, r12
+	add r12, r12
+	mov jt(r12), pc
+
+case_0:
 	mov #1, red_on
-	jmp endif
-else:
+	jmp end_case
+case_1:
 	call redOneThird
-endif:
+	jmp end_case
+end_case:
 	mov #1, led_changed
 	call led_update
+	pop pc
 	

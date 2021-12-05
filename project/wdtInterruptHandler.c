@@ -13,7 +13,11 @@ __interrupt_vec(WDT_VECTOR) WDT()
   static u_int second_count = 0;
 
   second_count++;
-
+  if(second_count == 2)
+    {
+      //led_dim_state_machine(1);
+    }
+  
   if(second_count >= 100)
     {
       blank_triangle();
